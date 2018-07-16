@@ -1,0 +1,1951 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{starter-code}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Project 1}\label{project-1}
+
+    \subsection{Step 1: Load the data and perform basic
+operations.}\label{step-1-load-the-data-and-perform-basic-operations.}
+
+    \subparagraph{1. Load the data in using
+pandas.}\label{load-the-data-in-using-pandas.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Bad key "gaxes.labelsize" on line 1 in
+/Users/priya/.matplotlib/stylelib/presentation.mplstyle.
+You probably need to get an updated matplotlibrc file from
+http://github.com/matplotlib/matplotlib/blob/master/matplotlibrc.template
+or from the matplotlib source distribution
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{sat} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/sat.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{sat}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}         State Participation  Evidence-Based Reading and Writing  Math  Total
+        0     Alabama            5\%                                 593   572   1165
+        1      Alaska           38\%                                 547   533   1080
+        2     Arizona           30\%                                 563   553   1116
+        3    Arkansas            3\%                                 614   594   1208
+        4  California           53\%                                 531   524   1055
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{act} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/act.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{act}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}       State Participation  English  Math  Reading  Science  Composite
+        0  National           60\%     20.3  20.7     21.4     21.0       21.0
+        1   Alabama          100\%     18.9  18.4     19.7     19.4       19.2
+        2    Alaska           65\%     18.7  19.8     20.4     19.9       19.8
+        3   Arizona           62\%     18.6  19.8     20.1     19.8       19.7
+        4  Arkansas          100\%     18.9  19.0     19.7     19.5       19.4
+\end{Verbatim}
+            
+    \subparagraph{2. Print the first ten rows of each
+dataframe.}\label{print-the-first-ten-rows-of-each-dataframe.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{sat}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}                   State Participation  Evidence-Based Reading and Writing  \textbackslash{}
+        0               Alabama            5\%                                 593   
+        1                Alaska           38\%                                 547   
+        2               Arizona           30\%                                 563   
+        3              Arkansas            3\%                                 614   
+        4            California           53\%                                 531   
+        5              Colorado           11\%                                 606   
+        6           Connecticut          100\%                                 530   
+        7              Delaware          100\%                                 503   
+        8  District of Columbia          100\%                                 482   
+        9               Florida           83\%                                 520   
+        
+           Math  Total  
+        0   572   1165  
+        1   533   1080  
+        2   553   1116  
+        3   594   1208  
+        4   524   1055  
+        5   595   1201  
+        6   512   1041  
+        7   492    996  
+        8   468    950  
+        9   497   1017  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{act}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}                   State Participation  English  Math  Reading  Science  \textbackslash{}
+        0              National           60\%     20.3  20.7     21.4     21.0   
+        1               Alabama          100\%     18.9  18.4     19.7     19.4   
+        2                Alaska           65\%     18.7  19.8     20.4     19.9   
+        3               Arizona           62\%     18.6  19.8     20.1     19.8   
+        4              Arkansas          100\%     18.9  19.0     19.7     19.5   
+        5            California           31\%     22.5  22.7     23.1     22.2   
+        6              Colorado          100\%     20.1  20.3     21.2     20.9   
+        7           Connecticut           31\%     25.5  24.6     25.6     24.6   
+        8              Delaware           18\%     24.1  23.4     24.8     23.6   
+        9  District of Columbia           32\%     24.4  23.5     24.9     23.5   
+        
+           Composite  
+        0       21.0  
+        1       19.2  
+        2       19.8  
+        3       19.7  
+        4       19.4  
+        5       22.8  
+        6       20.8  
+        7       25.2  
+        8       24.1  
+        9       24.2  
+\end{Verbatim}
+            
+    \subparagraph{3. Describe in words what each variable (column)
+is.}\label{describe-in-words-what-each-variable-column-is.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}SAT}
+        
+        \PY{c+c1}{\PYZsh{} Index number (Column 0);}
+        \PY{c+c1}{\PYZsh{}State (Column 1) = Name of the states that the data belongs to; }
+        \PY{c+c1}{\PYZsh{}Participation (Column 2) = Participation rate per state}
+        \PY{c+c1}{\PYZsh{} Evidence\PYZhy{}Based Reading and Writing (Column 3) = Average scores of the Evidence\PYZhy{}Based R \PYZam{} W section per state}
+        \PY{c+c1}{\PYZsh{} Math (Column 4) \PYZhy{} Average math scores per state}
+        \PY{c+c1}{\PYZsh{} Total (Column 5) \PYZhy{} Average of total SAT scores per state}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}ACT}
+        
+        \PY{c+c1}{\PYZsh{} Index number (Column 0); }
+        \PY{c+c1}{\PYZsh{}State (Column 1) = Name of the states that the data belongs to; }
+        \PY{c+c1}{\PYZsh{}Participation (Column 2) = Participation rate per state}
+        \PY{c+c1}{\PYZsh{} English (Column 3) = Average scores in the English section per state}
+        \PY{c+c1}{\PYZsh{} Math (Column 4) = Average scores in the Math section per state}
+        \PY{c+c1}{\PYZsh{} Reading (Column 5) = Average scores in the Reading section per state}
+        \PY{c+c1}{\PYZsh{} Science (Column 6) = Average scores in the Science section per state}
+        \PY{c+c1}{\PYZsh{} Composite (Column 7) = Average of the four sections (English, Math, Reading, Science) per state}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{sat}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}                    State Participation  Evidence-Based Reading and Writing  \textbackslash{}
+        0                Alabama            5\%                                 593   
+        1                 Alaska           38\%                                 547   
+        2                Arizona           30\%                                 563   
+        3               Arkansas            3\%                                 614   
+        4             California           53\%                                 531   
+        5               Colorado           11\%                                 606   
+        6            Connecticut          100\%                                 530   
+        7               Delaware          100\%                                 503   
+        8   District of Columbia          100\%                                 482   
+        9                Florida           83\%                                 520   
+        10               Georgia           61\%                                 535   
+        11                Hawaii           55\%                                 544   
+        12                 Idaho           93\%                                 513   
+        13              Illinois            9\%                                 559   
+        14               Indiana           63\%                                 542   
+        15                  Iowa            2\%                                 641   
+        16                Kansas            4\%                                 632   
+        17              Kentucky            4\%                                 631   
+        18             Louisiana            4\%                                 611   
+        19                 Maine           95\%                                 513   
+        20              Maryland           69\%                                 536   
+        21         Massachusetts           76\%                                 555   
+        22              Michigan          100\%                                 509   
+        23             Minnesota            3\%                                 644   
+        24           Mississippi            2\%                                 634   
+        25              Missouri            3\%                                 640   
+        26               Montana           10\%                                 605   
+        27              Nebraska            3\%                                 629   
+        28                Nevada           26\%                                 563   
+        29         New Hampshire           96\%                                 532   
+        30            New Jersey           70\%                                 530   
+        31            New Mexico           11\%                                 577   
+        32              New York           67\%                                 528   
+        33        North Carolina           49\%                                 546   
+        34          North Dakota            2\%                                 635   
+        35                  Ohio           12\%                                 578   
+        36              Oklahoma            7\%                                 530   
+        37                Oregon           43\%                                 560   
+        38          Pennsylvania           65\%                                 540   
+        39          Rhode Island           71\%                                 539   
+        40        South Carolina           50\%                                 543   
+        41          South Dakota            3\%                                 612   
+        42             Tennessee            5\%                                 623   
+        43                 Texas           62\%                                 513   
+        44                  Utah            3\%                                 624   
+        45               Vermont           60\%                                 562   
+        46              Virginia           65\%                                 561   
+        47            Washington           64\%                                 541   
+        48         West Virginia           14\%                                 558   
+        49             Wisconsin            3\%                                 642   
+        50               Wyoming            3\%                                 626   
+        
+            Math  Total  
+        0    572   1165  
+        1    533   1080  
+        2    553   1116  
+        3    594   1208  
+        4    524   1055  
+        5    595   1201  
+        6    512   1041  
+        7    492    996  
+        8    468    950  
+        9    497   1017  
+        10   515   1050  
+        11   541   1085  
+        12   493   1005  
+        13   556   1115  
+        14   532   1074  
+        15   635   1275  
+        16   628   1260  
+        17   616   1247  
+        18   586   1198  
+        19   499   1012  
+        20    52   1060  
+        21   551   1107  
+        22   495   1005  
+        23   651   1295  
+        24   607   1242  
+        25   631   1271  
+        26   591   1196  
+        27   625   1253  
+        28   553   1116  
+        29   520   1052  
+        30   526   1056  
+        31   561   1138  
+        32   523   1052  
+        33   535   1081  
+        34   621   1256  
+        35   570   1149  
+        36   517   1047  
+        37   548   1108  
+        38   531   1071  
+        39   524   1062  
+        40   521   1064  
+        41   603   1216  
+        42   604   1228  
+        43   507   1020  
+        44   614   1238  
+        45   551   1114  
+        46   541   1102  
+        47   534   1075  
+        48   528   1086  
+        49   649   1291  
+        50   604   1230  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{act}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}                    State Participation  English  Math  Reading  Science  \textbackslash{}
+        0               National           60\%     20.3  20.7     21.4     21.0   
+        1                Alabama          100\%     18.9  18.4     19.7     19.4   
+        2                 Alaska           65\%     18.7  19.8     20.4     19.9   
+        3                Arizona           62\%     18.6  19.8     20.1     19.8   
+        4               Arkansas          100\%     18.9  19.0     19.7     19.5   
+        5             California           31\%     22.5  22.7     23.1     22.2   
+        6               Colorado          100\%     20.1  20.3     21.2     20.9   
+        7            Connecticut           31\%     25.5  24.6     25.6     24.6   
+        8               Delaware           18\%     24.1  23.4     24.8     23.6   
+        9   District of Columbia           32\%     24.4  23.5     24.9     23.5   
+        10               Florida           73\%     19.0  19.4     21.0     19.4   
+        11               Georgia           55\%     21.0  20.9     22.0     21.3   
+        12                Hawaii           90\%     17.8  19.2     19.2     19.3   
+        13                 Idaho           38\%     21.9  21.8     23.0     22.1   
+        14              Illinois           93\%     21.0  21.2     21.6     21.3   
+        15               Indiana           35\%     22.0  22.4     23.2     22.3   
+        16                  Iowa           67\%     21.2  21.3     22.6     22.1   
+        17                Kansas           73\%     21.1  21.3     22.3     21.7   
+        18              Kentucky          100\%     19.6  19.4     20.5     20.1   
+        19             Louisiana          100\%     19.4  18.8     19.8     19.6   
+        20                 Maine            8\%     24.2  24.0     24.8     23.7   
+        21              Maryland           28\%     23.3  23.1     24.2      2.3   
+        22         Massachusetts           29\%     25.4  25.3     25.9     24.7   
+        23              Michigan           29\%     24.1  23.7     24.5     23.8   
+        24             Minnesota          100\%     20.4  21.5     21.8     21.6   
+        25           Mississippi          100\%     18.2  18.1     18.8     18.8   
+        26              Missouri          100\%     19.8  19.9     20.8     20.5   
+        27               Montana          100\%     19.0  20.2     21.0     20.5   
+        28              Nebraska           84\%     20.9  20.9     21.9     21.5   
+        29                Nevada          100\%     16.3  18.0     18.1     18.2   
+        30         New Hampshire           18\%     25.4  25.1     26.0     24.9   
+        31            New Jersey           34\%     23.8  23.8     24.1     23.2   
+        32            New Mexico           66\%     18.6  19.4     20.4     20.0   
+        33              New York           31\%     23.8  24.0     24.6     23.9   
+        34        North Carolina          100\%     17.8  19.3     19.6     19.3   
+        35          North Dakota           98\%     19.0  20.4     20.5     20.6   
+        36                  Ohio           75\%     21.2  21.6     22.5     22.0   
+        37              Oklahoma          100\%     18.5  18.8     20.1     19.6   
+        38                Oregon           40\%     21.2  21.5     22.4     21.7   
+        39          Pennsylvania           23\%     23.4  23.4     24.2     23.3   
+        40          Rhode Island           21\%     24.0  23.3     24.7     23.4   
+        41        South Carolina          100\%     17.5  18.6     19.1     18.9   
+        42          South Dakota           80\%     20.7  21.5     22.3     22.0   
+        43             Tennessee          100\%     19.5  19.2     20.1     19.9   
+        44                 Texas           45\%     19.5  20.7     21.1     20.9   
+        45                  Utah          100\%     19.5  19.9     20.8     20.6   
+        46               Vermont           29\%     23.3  23.1     24.4     23.2   
+        47              Virginia           29\%     23.5  23.3     24.6     23.5   
+        48            Washington           29\%     20.9  21.9     22.1     22.0   
+        49         West Virginia           69\%     20.0  19.4     21.2     20.5   
+        50             Wisconsin          100\%     19.7  20.4     20.6     20.9   
+        51               Wyoming          100\%     19.4  19.8     20.8     20.6   
+        
+            Composite  
+        0        21.0  
+        1        19.2  
+        2        19.8  
+        3        19.7  
+        4        19.4  
+        5        22.8  
+        6        20.8  
+        7        25.2  
+        8        24.1  
+        9        24.2  
+        10       19.8  
+        11       21.4  
+        12       19.0  
+        13       22.3  
+        14       21.4  
+        15       22.6  
+        16       21.9  
+        17       21.7  
+        18       20.0  
+        19       19.5  
+        20       24.3  
+        21       23.6  
+        22       25.4  
+        23       24.1  
+        24       21.5  
+        25       18.6  
+        26       20.4  
+        27       20.3  
+        28       21.4  
+        29       17.8  
+        30       25.5  
+        31       23.9  
+        32       19.7  
+        33       24.2  
+        34       19.1  
+        35       20.3  
+        36       22.0  
+        37       19.4  
+        38       21.8  
+        39       23.7  
+        40       24.0  
+        41       18.7  
+        42       21.8  
+        43       19.8  
+        44       20.7  
+        45       20.3  
+        46       23.6  
+        47       23.8  
+        48       21.9  
+        49       20.4  
+        50       20.5  
+        51       20.2  
+\end{Verbatim}
+            
+    \subparagraph{4. Does the data look complete? Are there any obvious
+issues with the
+observations?}\label{does-the-data-look-complete-are-there-any-obvious-issues-with-the-observations}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{sat}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} State                                 0
+         Participation                         0
+         Evidence-Based Reading and Writing    0
+         Math                                  0
+         Total                                 0
+         dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{act}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} State            0
+         Participation    0
+         English          0
+         Math             0
+         Reading          0
+         Science          0
+         Composite        0
+         dtype: int64
+\end{Verbatim}
+            
+    \subparagraph{5. Print the types of each
+column.}\label{print-the-types-of-each-column.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{sat}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} State                                 object
+         Participation                         object
+         Evidence-Based Reading and Writing     int64
+         Math                                   int64
+         Total                                  int64
+         dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{act}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} State             object
+         Participation     object
+         English          float64
+         Math             float64
+         Reading          float64
+         Science          float64
+         Composite        float64
+         dtype: object
+\end{Verbatim}
+            
+    \subparagraph{6. Do any types need to be reassigned? If so, go ahead and
+do
+it.}\label{do-any-types-need-to-be-reassigned-if-so-go-ahead-and-do-it.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n+nb}{int}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{5}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 5
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k}{def} \PY{n+nf}{replace\PYZus{}perc}\PY{p}{(}\PY{n}{string}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n+nb}{int}\PY{p}{(}\PY{n}{string}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{replace\PYZus{}perc}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{30}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} 30
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{sat}\PY{o}{.}\PY{n}{Participation} \PY{o}{=} \PY{n}{sat}\PY{o}{.}\PY{n}{Participation}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{replace\PYZus{}perc}\PY{p}{)}
+         \PY{n}{act}\PY{o}{.}\PY{n}{Participation} \PY{o}{=} \PY{n}{act}\PY{o}{.}\PY{n}{Participation}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{replace\PYZus{}perc}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{sat}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+         \PY{n}{act}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}       State  Participation  English  Math  Reading  Science  Composite
+         0  National             60     20.3  20.7     21.4     21.0       21.0
+         1   Alabama            100     18.9  18.4     19.7     19.4       19.2
+         2    Alaska             65     18.7  19.8     20.4     19.9       19.8
+         3   Arizona             62     18.6  19.8     20.1     19.8       19.7
+         4  Arkansas            100     18.9  19.0     19.7     19.5       19.4
+\end{Verbatim}
+            
+    \subparagraph{7. Create a dictionary for each column mapping the State
+to its respective value for that column. (For example, you should have
+three SAT
+dictionaries.)}\label{create-a-dictionary-for-each-column-mapping-the-state-to-its-respective-value-for-that-column.-for-example-you-should-have-three-sat-dictionaries.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Ignore these!}
+\end{Verbatim}
+
+
+    \subparagraph{8. Create one dictionary where each key is the column
+name, and each value is an iterable (a list or a Pandas Series) of all
+the values in that
+column.}\label{create-one-dictionary-where-each-key-is-the-column-name-and-each-value-is-an-iterable-a-list-or-a-pandas-series-of-all-the-values-in-that-column.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} Ignore these!}
+\end{Verbatim}
+
+
+    \subparagraph{9. Merge the dataframes on the state
+column.}\label{merge-the-dataframes-on-the-state-column.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}pd.concat([sat, act], axis=1)}
+         \PY{n}{merged} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{sat}\PY{p}{,} \PY{n}{act}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{State}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{merged}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}                    State  Participation\_x  Evidence-Based Reading and Writing  \textbackslash{}
+         0                Alabama                5                                 593   
+         1                 Alaska               38                                 547   
+         2                Arizona               30                                 563   
+         3               Arkansas                3                                 614   
+         4             California               53                                 531   
+         5               Colorado               11                                 606   
+         6            Connecticut              100                                 530   
+         7               Delaware              100                                 503   
+         8   District of Columbia              100                                 482   
+         9                Florida               83                                 520   
+         10               Georgia               61                                 535   
+         11                Hawaii               55                                 544   
+         12                 Idaho               93                                 513   
+         13              Illinois                9                                 559   
+         14               Indiana               63                                 542   
+         15                  Iowa                2                                 641   
+         16                Kansas                4                                 632   
+         17              Kentucky                4                                 631   
+         18             Louisiana                4                                 611   
+         19                 Maine               95                                 513   
+         20              Maryland               69                                 536   
+         21         Massachusetts               76                                 555   
+         22              Michigan              100                                 509   
+         23             Minnesota                3                                 644   
+         24           Mississippi                2                                 634   
+         25              Missouri                3                                 640   
+         26               Montana               10                                 605   
+         27              Nebraska                3                                 629   
+         28                Nevada               26                                 563   
+         29         New Hampshire               96                                 532   
+         30            New Jersey               70                                 530   
+         31            New Mexico               11                                 577   
+         32              New York               67                                 528   
+         33        North Carolina               49                                 546   
+         34          North Dakota                2                                 635   
+         35                  Ohio               12                                 578   
+         36              Oklahoma                7                                 530   
+         37                Oregon               43                                 560   
+         38          Pennsylvania               65                                 540   
+         39          Rhode Island               71                                 539   
+         40        South Carolina               50                                 543   
+         41          South Dakota                3                                 612   
+         42             Tennessee                5                                 623   
+         43                 Texas               62                                 513   
+         44                  Utah                3                                 624   
+         45               Vermont               60                                 562   
+         46              Virginia               65                                 561   
+         47            Washington               64                                 541   
+         48         West Virginia               14                                 558   
+         49             Wisconsin                3                                 642   
+         50               Wyoming                3                                 626   
+         
+             Math\_x  Total  Participation\_y  English  Math\_y  Reading  Science  \textbackslash{}
+         0      572   1165              100     18.9    18.4     19.7     19.4   
+         1      533   1080               65     18.7    19.8     20.4     19.9   
+         2      553   1116               62     18.6    19.8     20.1     19.8   
+         3      594   1208              100     18.9    19.0     19.7     19.5   
+         4      524   1055               31     22.5    22.7     23.1     22.2   
+         5      595   1201              100     20.1    20.3     21.2     20.9   
+         6      512   1041               31     25.5    24.6     25.6     24.6   
+         7      492    996               18     24.1    23.4     24.8     23.6   
+         8      468    950               32     24.4    23.5     24.9     23.5   
+         9      497   1017               73     19.0    19.4     21.0     19.4   
+         10     515   1050               55     21.0    20.9     22.0     21.3   
+         11     541   1085               90     17.8    19.2     19.2     19.3   
+         12     493   1005               38     21.9    21.8     23.0     22.1   
+         13     556   1115               93     21.0    21.2     21.6     21.3   
+         14     532   1074               35     22.0    22.4     23.2     22.3   
+         15     635   1275               67     21.2    21.3     22.6     22.1   
+         16     628   1260               73     21.1    21.3     22.3     21.7   
+         17     616   1247              100     19.6    19.4     20.5     20.1   
+         18     586   1198              100     19.4    18.8     19.8     19.6   
+         19     499   1012                8     24.2    24.0     24.8     23.7   
+         20      52   1060               28     23.3    23.1     24.2      2.3   
+         21     551   1107               29     25.4    25.3     25.9     24.7   
+         22     495   1005               29     24.1    23.7     24.5     23.8   
+         23     651   1295              100     20.4    21.5     21.8     21.6   
+         24     607   1242              100     18.2    18.1     18.8     18.8   
+         25     631   1271              100     19.8    19.9     20.8     20.5   
+         26     591   1196              100     19.0    20.2     21.0     20.5   
+         27     625   1253               84     20.9    20.9     21.9     21.5   
+         28     553   1116              100     16.3    18.0     18.1     18.2   
+         29     520   1052               18     25.4    25.1     26.0     24.9   
+         30     526   1056               34     23.8    23.8     24.1     23.2   
+         31     561   1138               66     18.6    19.4     20.4     20.0   
+         32     523   1052               31     23.8    24.0     24.6     23.9   
+         33     535   1081              100     17.8    19.3     19.6     19.3   
+         34     621   1256               98     19.0    20.4     20.5     20.6   
+         35     570   1149               75     21.2    21.6     22.5     22.0   
+         36     517   1047              100     18.5    18.8     20.1     19.6   
+         37     548   1108               40     21.2    21.5     22.4     21.7   
+         38     531   1071               23     23.4    23.4     24.2     23.3   
+         39     524   1062               21     24.0    23.3     24.7     23.4   
+         40     521   1064              100     17.5    18.6     19.1     18.9   
+         41     603   1216               80     20.7    21.5     22.3     22.0   
+         42     604   1228              100     19.5    19.2     20.1     19.9   
+         43     507   1020               45     19.5    20.7     21.1     20.9   
+         44     614   1238              100     19.5    19.9     20.8     20.6   
+         45     551   1114               29     23.3    23.1     24.4     23.2   
+         46     541   1102               29     23.5    23.3     24.6     23.5   
+         47     534   1075               29     20.9    21.9     22.1     22.0   
+         48     528   1086               69     20.0    19.4     21.2     20.5   
+         49     649   1291              100     19.7    20.4     20.6     20.9   
+         50     604   1230              100     19.4    19.8     20.8     20.6   
+         
+             Composite  
+         0        19.2  
+         1        19.8  
+         2        19.7  
+         3        19.4  
+         4        22.8  
+         5        20.8  
+         6        25.2  
+         7        24.1  
+         8        24.2  
+         9        19.8  
+         10       21.4  
+         11       19.0  
+         12       22.3  
+         13       21.4  
+         14       22.6  
+         15       21.9  
+         16       21.7  
+         17       20.0  
+         18       19.5  
+         19       24.3  
+         20       23.6  
+         21       25.4  
+         22       24.1  
+         23       21.5  
+         24       18.6  
+         25       20.4  
+         26       20.3  
+         27       21.4  
+         28       17.8  
+         29       25.5  
+         30       23.9  
+         31       19.7  
+         32       24.2  
+         33       19.1  
+         34       20.3  
+         35       22.0  
+         36       19.4  
+         37       21.8  
+         38       23.7  
+         39       24.0  
+         40       18.7  
+         41       21.8  
+         42       19.8  
+         43       20.7  
+         44       20.3  
+         45       23.6  
+         46       23.8  
+         47       21.9  
+         48       20.4  
+         49       20.5  
+         50       20.2  
+\end{Verbatim}
+            
+    \subparagraph{10. Change the names of the columns so you can distinguish
+between the SAT columns and the ACT
+columns.}\label{change-the-names-of-the-columns-so-you-can-distinguish-between-the-sat-columns-and-the-act-columns.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}sat.rename(columns = \PYZob{}\PYZsq{}State\PYZsq{}: \PYZsq{}State (SAT)\PYZsq{}, \PYZsq{}Participation\PYZsq{}: \PYZsq{}Participation (SAT)\PYZsq{} \PYZcb{})}
+         \PY{n}{mergedRenamed} \PY{o}{=} \PY{n}{merged}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Participation\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}participation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Evidence\PYZhy{}Based Reading and Writing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}reading\PYZus{}writing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Math\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}math}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Participation\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{act\PYZus{}participation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{English}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{act\PYZus{}english}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Math\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{act\PYZus{}math}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reading}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{act\PYZus{}reading}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Science}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{act\PYZus{}science}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Composite}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{act\PYZus{}composite}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{mergedRenamed}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:}                    State  sat\_participation  sat\_reading\_writing  sat\_math  \textbackslash{}
+         0                Alabama                  5                  593       572   
+         1                 Alaska                 38                  547       533   
+         2                Arizona                 30                  563       553   
+         3               Arkansas                  3                  614       594   
+         4             California                 53                  531       524   
+         5               Colorado                 11                  606       595   
+         6            Connecticut                100                  530       512   
+         7               Delaware                100                  503       492   
+         8   District of Columbia                100                  482       468   
+         9                Florida                 83                  520       497   
+         10               Georgia                 61                  535       515   
+         11                Hawaii                 55                  544       541   
+         12                 Idaho                 93                  513       493   
+         13              Illinois                  9                  559       556   
+         14               Indiana                 63                  542       532   
+         15                  Iowa                  2                  641       635   
+         16                Kansas                  4                  632       628   
+         17              Kentucky                  4                  631       616   
+         18             Louisiana                  4                  611       586   
+         19                 Maine                 95                  513       499   
+         20              Maryland                 69                  536        52   
+         21         Massachusetts                 76                  555       551   
+         22              Michigan                100                  509       495   
+         23             Minnesota                  3                  644       651   
+         24           Mississippi                  2                  634       607   
+         25              Missouri                  3                  640       631   
+         26               Montana                 10                  605       591   
+         27              Nebraska                  3                  629       625   
+         28                Nevada                 26                  563       553   
+         29         New Hampshire                 96                  532       520   
+         30            New Jersey                 70                  530       526   
+         31            New Mexico                 11                  577       561   
+         32              New York                 67                  528       523   
+         33        North Carolina                 49                  546       535   
+         34          North Dakota                  2                  635       621   
+         35                  Ohio                 12                  578       570   
+         36              Oklahoma                  7                  530       517   
+         37                Oregon                 43                  560       548   
+         38          Pennsylvania                 65                  540       531   
+         39          Rhode Island                 71                  539       524   
+         40        South Carolina                 50                  543       521   
+         41          South Dakota                  3                  612       603   
+         42             Tennessee                  5                  623       604   
+         43                 Texas                 62                  513       507   
+         44                  Utah                  3                  624       614   
+         45               Vermont                 60                  562       551   
+         46              Virginia                 65                  561       541   
+         47            Washington                 64                  541       534   
+         48         West Virginia                 14                  558       528   
+         49             Wisconsin                  3                  642       649   
+         50               Wyoming                  3                  626       604   
+         
+             sat\_total  act\_participation  act\_english  act\_math  act\_reading  \textbackslash{}
+         0        1165                100         18.9      18.4         19.7   
+         1        1080                 65         18.7      19.8         20.4   
+         2        1116                 62         18.6      19.8         20.1   
+         3        1208                100         18.9      19.0         19.7   
+         4        1055                 31         22.5      22.7         23.1   
+         5        1201                100         20.1      20.3         21.2   
+         6        1041                 31         25.5      24.6         25.6   
+         7         996                 18         24.1      23.4         24.8   
+         8         950                 32         24.4      23.5         24.9   
+         9        1017                 73         19.0      19.4         21.0   
+         10       1050                 55         21.0      20.9         22.0   
+         11       1085                 90         17.8      19.2         19.2   
+         12       1005                 38         21.9      21.8         23.0   
+         13       1115                 93         21.0      21.2         21.6   
+         14       1074                 35         22.0      22.4         23.2   
+         15       1275                 67         21.2      21.3         22.6   
+         16       1260                 73         21.1      21.3         22.3   
+         17       1247                100         19.6      19.4         20.5   
+         18       1198                100         19.4      18.8         19.8   
+         19       1012                  8         24.2      24.0         24.8   
+         20       1060                 28         23.3      23.1         24.2   
+         21       1107                 29         25.4      25.3         25.9   
+         22       1005                 29         24.1      23.7         24.5   
+         23       1295                100         20.4      21.5         21.8   
+         24       1242                100         18.2      18.1         18.8   
+         25       1271                100         19.8      19.9         20.8   
+         26       1196                100         19.0      20.2         21.0   
+         27       1253                 84         20.9      20.9         21.9   
+         28       1116                100         16.3      18.0         18.1   
+         29       1052                 18         25.4      25.1         26.0   
+         30       1056                 34         23.8      23.8         24.1   
+         31       1138                 66         18.6      19.4         20.4   
+         32       1052                 31         23.8      24.0         24.6   
+         33       1081                100         17.8      19.3         19.6   
+         34       1256                 98         19.0      20.4         20.5   
+         35       1149                 75         21.2      21.6         22.5   
+         36       1047                100         18.5      18.8         20.1   
+         37       1108                 40         21.2      21.5         22.4   
+         38       1071                 23         23.4      23.4         24.2   
+         39       1062                 21         24.0      23.3         24.7   
+         40       1064                100         17.5      18.6         19.1   
+         41       1216                 80         20.7      21.5         22.3   
+         42       1228                100         19.5      19.2         20.1   
+         43       1020                 45         19.5      20.7         21.1   
+         44       1238                100         19.5      19.9         20.8   
+         45       1114                 29         23.3      23.1         24.4   
+         46       1102                 29         23.5      23.3         24.6   
+         47       1075                 29         20.9      21.9         22.1   
+         48       1086                 69         20.0      19.4         21.2   
+         49       1291                100         19.7      20.4         20.6   
+         50       1230                100         19.4      19.8         20.8   
+         
+             act\_science  act\_composite  
+         0          19.4           19.2  
+         1          19.9           19.8  
+         2          19.8           19.7  
+         3          19.5           19.4  
+         4          22.2           22.8  
+         5          20.9           20.8  
+         6          24.6           25.2  
+         7          23.6           24.1  
+         8          23.5           24.2  
+         9          19.4           19.8  
+         10         21.3           21.4  
+         11         19.3           19.0  
+         12         22.1           22.3  
+         13         21.3           21.4  
+         14         22.3           22.6  
+         15         22.1           21.9  
+         16         21.7           21.7  
+         17         20.1           20.0  
+         18         19.6           19.5  
+         19         23.7           24.3  
+         20          2.3           23.6  
+         21         24.7           25.4  
+         22         23.8           24.1  
+         23         21.6           21.5  
+         24         18.8           18.6  
+         25         20.5           20.4  
+         26         20.5           20.3  
+         27         21.5           21.4  
+         28         18.2           17.8  
+         29         24.9           25.5  
+         30         23.2           23.9  
+         31         20.0           19.7  
+         32         23.9           24.2  
+         33         19.3           19.1  
+         34         20.6           20.3  
+         35         22.0           22.0  
+         36         19.6           19.4  
+         37         21.7           21.8  
+         38         23.3           23.7  
+         39         23.4           24.0  
+         40         18.9           18.7  
+         41         22.0           21.8  
+         42         19.9           19.8  
+         43         20.9           20.7  
+         44         20.6           20.3  
+         45         23.2           23.6  
+         46         23.5           23.8  
+         47         22.0           21.9  
+         48         20.5           20.4  
+         49         20.9           20.5  
+         50         20.6           20.2  
+\end{Verbatim}
+            
+    \subparagraph{11. Print the minimum and maximum of each numeric column
+in the data
+frame.}\label{print-the-minimum-and-maximum-of-each-numeric-column-in-the-data-frame.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{sat}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} State                                 Alabama
+         Participation                               2
+         Evidence-Based Reading and Writing        482
+         Math                                       52
+         Total                                     950
+         dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{sat}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} State                                 Wyoming
+         Participation                             100
+         Evidence-Based Reading and Writing        644
+         Math                                      651
+         Total                                    1295
+         dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{act}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} State            Alabama
+         Participation          8
+         English             16.3
+         Math                  18
+         Reading             18.1
+         Science              2.3
+         Composite           17.8
+         dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{act}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} State            Wyoming
+         Participation        100
+         English             25.5
+         Math                25.3
+         Reading               26
+         Science             24.9
+         Composite           25.5
+         dtype: object
+\end{Verbatim}
+            
+    \subparagraph{\texorpdfstring{12. Write a function using only list
+comprehensions, no loops, to compute standard deviation. Using this
+function, calculate the standard deviation of each numeric column in
+both data sets. Add these to a list called
+\texttt{sd}.}{12. Write a function using only list comprehensions, no loops, to compute standard deviation. Using this function, calculate the standard deviation of each numeric column in both data sets. Add these to a list called sd.}}\label{write-a-function-using-only-list-comprehensions-no-loops-to-compute-standard-deviation.-using-this-function-calculate-the-standard-deviation-of-each-numeric-column-in-both-data-sets.-add-these-to-a-list-called-sd.}
+
+\[\sigma = \sqrt{\frac{1}{n}\sum_{i=1}^n(x_i - \mu)^2}\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k}{def} \PY{n+nf}{st\PYZus{}dev}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{[}\PY{n}{merged}\PY{o}{.}\PY{n}{Participation\PYZus{}x}\PY{p}{,}\PY{n}{merged}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Evidence\PYZhy{}Based Reading and Writing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{merged}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Math\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{merged}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{merged}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{English}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{merged}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Math\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{merged}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reading}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{merged}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Science}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{merged}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Composite}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{n}{st\PYZus{}dev}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} array([391.78903337, 360.0997787 , 373.00755065, 406.59639557,
+                349.47770165, 403.09751631, 341.19816985, 326.05404801,
+                310.40120076, 335.84094707, 347.7882565 , 360.99675523,
+                330.34934632, 373.56068805, 355.4206897 , 428.78346114,
+                423.47631473, 419.64292964, 402.9810834 , 331.78921503,
+                342.40410499, 364.79242026, 329.11884528, 435.63152824,
+                418.53147086, 427.7991328 , 401.62894275, 421.35028974,
+                373.97902925, 344.95706049, 348.36896185, 381.90510294,
+                346.9675297 , 359.97131059, 422.78879676, 384.69642288,
+                351.15678711, 368.62204974, 353.86553316, 350.42185688,
+                354.28517216, 408.38734548, 413.06042813, 337.70553394,
+                416.52171019, 368.83485849, 364.44679234, 355.97090532,
+                363.68422811, 434.59587614, 413.8294442 ])
+\end{Verbatim}
+            
+    \subsection{Step 2: Manipulate the
+dataframe}\label{step-2-manipulate-the-dataframe}
+
+    \subparagraph{\texorpdfstring{13. Turn the list \texttt{sd} into a new
+observation in your
+dataset.}{13. Turn the list sd into a new observation in your dataset.}}\label{turn-the-list-sd-into-a-new-observation-in-your-dataset.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} Skip this}
+\end{Verbatim}
+
+
+    \subparagraph{14. Sort the dataframe by the values in a numeric column
+(e.g. observations descending by SAT participation
+rate)}\label{sort-the-dataframe-by-the-values-in-a-numeric-column-e.g.-observations-descending-by-sat-participation-rate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{mergedRenamed}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}participation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:}                    State  sat\_participation  sat\_reading\_writing  sat\_math  \textbackslash{}
+         8   District of Columbia                100                  482       468   
+         22              Michigan                100                  509       495   
+         6            Connecticut                100                  530       512   
+         7               Delaware                100                  503       492   
+         29         New Hampshire                 96                  532       520   
+         19                 Maine                 95                  513       499   
+         12                 Idaho                 93                  513       493   
+         9                Florida                 83                  520       497   
+         21         Massachusetts                 76                  555       551   
+         39          Rhode Island                 71                  539       524   
+         30            New Jersey                 70                  530       526   
+         20              Maryland                 69                  536        52   
+         32              New York                 67                  528       523   
+         46              Virginia                 65                  561       541   
+         38          Pennsylvania                 65                  540       531   
+         47            Washington                 64                  541       534   
+         14               Indiana                 63                  542       532   
+         43                 Texas                 62                  513       507   
+         10               Georgia                 61                  535       515   
+         45               Vermont                 60                  562       551   
+         11                Hawaii                 55                  544       541   
+         4             California                 53                  531       524   
+         40        South Carolina                 50                  543       521   
+         33        North Carolina                 49                  546       535   
+         37                Oregon                 43                  560       548   
+         1                 Alaska                 38                  547       533   
+         2                Arizona                 30                  563       553   
+         28                Nevada                 26                  563       553   
+         48         West Virginia                 14                  558       528   
+         35                  Ohio                 12                  578       570   
+         5               Colorado                 11                  606       595   
+         31            New Mexico                 11                  577       561   
+         26               Montana                 10                  605       591   
+         13              Illinois                  9                  559       556   
+         36              Oklahoma                  7                  530       517   
+         0                Alabama                  5                  593       572   
+         42             Tennessee                  5                  623       604   
+         17              Kentucky                  4                  631       616   
+         16                Kansas                  4                  632       628   
+         18             Louisiana                  4                  611       586   
+         44                  Utah                  3                  624       614   
+         49             Wisconsin                  3                  642       649   
+         25              Missouri                  3                  640       631   
+         41          South Dakota                  3                  612       603   
+         27              Nebraska                  3                  629       625   
+         23             Minnesota                  3                  644       651   
+         3               Arkansas                  3                  614       594   
+         50               Wyoming                  3                  626       604   
+         34          North Dakota                  2                  635       621   
+         24           Mississippi                  2                  634       607   
+         15                  Iowa                  2                  641       635   
+         
+             sat\_total  act\_participation  act\_english  act\_math  act\_reading  \textbackslash{}
+         8         950                 32         24.4      23.5         24.9   
+         22       1005                 29         24.1      23.7         24.5   
+         6        1041                 31         25.5      24.6         25.6   
+         7         996                 18         24.1      23.4         24.8   
+         29       1052                 18         25.4      25.1         26.0   
+         19       1012                  8         24.2      24.0         24.8   
+         12       1005                 38         21.9      21.8         23.0   
+         9        1017                 73         19.0      19.4         21.0   
+         21       1107                 29         25.4      25.3         25.9   
+         39       1062                 21         24.0      23.3         24.7   
+         30       1056                 34         23.8      23.8         24.1   
+         20       1060                 28         23.3      23.1         24.2   
+         32       1052                 31         23.8      24.0         24.6   
+         46       1102                 29         23.5      23.3         24.6   
+         38       1071                 23         23.4      23.4         24.2   
+         47       1075                 29         20.9      21.9         22.1   
+         14       1074                 35         22.0      22.4         23.2   
+         43       1020                 45         19.5      20.7         21.1   
+         10       1050                 55         21.0      20.9         22.0   
+         45       1114                 29         23.3      23.1         24.4   
+         11       1085                 90         17.8      19.2         19.2   
+         4        1055                 31         22.5      22.7         23.1   
+         40       1064                100         17.5      18.6         19.1   
+         33       1081                100         17.8      19.3         19.6   
+         37       1108                 40         21.2      21.5         22.4   
+         1        1080                 65         18.7      19.8         20.4   
+         2        1116                 62         18.6      19.8         20.1   
+         28       1116                100         16.3      18.0         18.1   
+         48       1086                 69         20.0      19.4         21.2   
+         35       1149                 75         21.2      21.6         22.5   
+         5        1201                100         20.1      20.3         21.2   
+         31       1138                 66         18.6      19.4         20.4   
+         26       1196                100         19.0      20.2         21.0   
+         13       1115                 93         21.0      21.2         21.6   
+         36       1047                100         18.5      18.8         20.1   
+         0        1165                100         18.9      18.4         19.7   
+         42       1228                100         19.5      19.2         20.1   
+         17       1247                100         19.6      19.4         20.5   
+         16       1260                 73         21.1      21.3         22.3   
+         18       1198                100         19.4      18.8         19.8   
+         44       1238                100         19.5      19.9         20.8   
+         49       1291                100         19.7      20.4         20.6   
+         25       1271                100         19.8      19.9         20.8   
+         41       1216                 80         20.7      21.5         22.3   
+         27       1253                 84         20.9      20.9         21.9   
+         23       1295                100         20.4      21.5         21.8   
+         3        1208                100         18.9      19.0         19.7   
+         50       1230                100         19.4      19.8         20.8   
+         34       1256                 98         19.0      20.4         20.5   
+         24       1242                100         18.2      18.1         18.8   
+         15       1275                 67         21.2      21.3         22.6   
+         
+             act\_science  act\_composite  
+         8          23.5           24.2  
+         22         23.8           24.1  
+         6          24.6           25.2  
+         7          23.6           24.1  
+         29         24.9           25.5  
+         19         23.7           24.3  
+         12         22.1           22.3  
+         9          19.4           19.8  
+         21         24.7           25.4  
+         39         23.4           24.0  
+         30         23.2           23.9  
+         20          2.3           23.6  
+         32         23.9           24.2  
+         46         23.5           23.8  
+         38         23.3           23.7  
+         47         22.0           21.9  
+         14         22.3           22.6  
+         43         20.9           20.7  
+         10         21.3           21.4  
+         45         23.2           23.6  
+         11         19.3           19.0  
+         4          22.2           22.8  
+         40         18.9           18.7  
+         33         19.3           19.1  
+         37         21.7           21.8  
+         1          19.9           19.8  
+         2          19.8           19.7  
+         28         18.2           17.8  
+         48         20.5           20.4  
+         35         22.0           22.0  
+         5          20.9           20.8  
+         31         20.0           19.7  
+         26         20.5           20.3  
+         13         21.3           21.4  
+         36         19.6           19.4  
+         0          19.4           19.2  
+         42         19.9           19.8  
+         17         20.1           20.0  
+         16         21.7           21.7  
+         18         19.6           19.5  
+         44         20.6           20.3  
+         49         20.9           20.5  
+         25         20.5           20.4  
+         41         22.0           21.8  
+         27         21.5           21.4  
+         23         21.6           21.5  
+         3          19.5           19.4  
+         50         20.6           20.2  
+         34         20.6           20.3  
+         24         18.8           18.6  
+         15         22.1           21.9  
+\end{Verbatim}
+            
+    \subparagraph{15. Use a boolean filter to display only observations with
+a score above a certain threshold (e.g. only states with a participation
+rate above
+50\%)}\label{use-a-boolean-filter-to-display-only-observations-with-a-score-above-a-certain-threshold-e.g.-only-states-with-a-participation-rate-above-50}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{mergedRenamed}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}participation\PYZgt{}20}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:}                    State  sat\_participation  sat\_reading\_writing  sat\_math  \textbackslash{}
+         1                 Alaska                 38                  547       533   
+         2                Arizona                 30                  563       553   
+         4             California                 53                  531       524   
+         6            Connecticut                100                  530       512   
+         7               Delaware                100                  503       492   
+         8   District of Columbia                100                  482       468   
+         9                Florida                 83                  520       497   
+         10               Georgia                 61                  535       515   
+         11                Hawaii                 55                  544       541   
+         12                 Idaho                 93                  513       493   
+         14               Indiana                 63                  542       532   
+         19                 Maine                 95                  513       499   
+         20              Maryland                 69                  536        52   
+         21         Massachusetts                 76                  555       551   
+         22              Michigan                100                  509       495   
+         28                Nevada                 26                  563       553   
+         29         New Hampshire                 96                  532       520   
+         30            New Jersey                 70                  530       526   
+         32              New York                 67                  528       523   
+         33        North Carolina                 49                  546       535   
+         37                Oregon                 43                  560       548   
+         38          Pennsylvania                 65                  540       531   
+         39          Rhode Island                 71                  539       524   
+         40        South Carolina                 50                  543       521   
+         43                 Texas                 62                  513       507   
+         45               Vermont                 60                  562       551   
+         46              Virginia                 65                  561       541   
+         47            Washington                 64                  541       534   
+         
+             sat\_total  act\_participation  act\_english  act\_math  act\_reading  \textbackslash{}
+         1        1080                 65         18.7      19.8         20.4   
+         2        1116                 62         18.6      19.8         20.1   
+         4        1055                 31         22.5      22.7         23.1   
+         6        1041                 31         25.5      24.6         25.6   
+         7         996                 18         24.1      23.4         24.8   
+         8         950                 32         24.4      23.5         24.9   
+         9        1017                 73         19.0      19.4         21.0   
+         10       1050                 55         21.0      20.9         22.0   
+         11       1085                 90         17.8      19.2         19.2   
+         12       1005                 38         21.9      21.8         23.0   
+         14       1074                 35         22.0      22.4         23.2   
+         19       1012                  8         24.2      24.0         24.8   
+         20       1060                 28         23.3      23.1         24.2   
+         21       1107                 29         25.4      25.3         25.9   
+         22       1005                 29         24.1      23.7         24.5   
+         28       1116                100         16.3      18.0         18.1   
+         29       1052                 18         25.4      25.1         26.0   
+         30       1056                 34         23.8      23.8         24.1   
+         32       1052                 31         23.8      24.0         24.6   
+         33       1081                100         17.8      19.3         19.6   
+         37       1108                 40         21.2      21.5         22.4   
+         38       1071                 23         23.4      23.4         24.2   
+         39       1062                 21         24.0      23.3         24.7   
+         40       1064                100         17.5      18.6         19.1   
+         43       1020                 45         19.5      20.7         21.1   
+         45       1114                 29         23.3      23.1         24.4   
+         46       1102                 29         23.5      23.3         24.6   
+         47       1075                 29         20.9      21.9         22.1   
+         
+             act\_science  act\_composite  
+         1          19.9           19.8  
+         2          19.8           19.7  
+         4          22.2           22.8  
+         6          24.6           25.2  
+         7          23.6           24.1  
+         8          23.5           24.2  
+         9          19.4           19.8  
+         10         21.3           21.4  
+         11         19.3           19.0  
+         12         22.1           22.3  
+         14         22.3           22.6  
+         19         23.7           24.3  
+         20          2.3           23.6  
+         21         24.7           25.4  
+         22         23.8           24.1  
+         28         18.2           17.8  
+         29         24.9           25.5  
+         30         23.2           23.9  
+         32         23.9           24.2  
+         33         19.3           19.1  
+         37         21.7           21.8  
+         38         23.3           23.7  
+         39         23.4           24.0  
+         40         18.9           18.7  
+         43         20.9           20.7  
+         45         23.2           23.6  
+         46         23.5           23.8  
+         47         22.0           21.9  
+\end{Verbatim}
+            
+    \subsection{Step 3: Visualize the data}\label{step-3-visualize-the-data}
+
+    \subparagraph{\texorpdfstring{16. Using MatPlotLib and PyPlot, plot the
+distribution of the Rate columns for both SAT and ACT using histograms.
+(You should have two histograms. You might find
+\href{https://matplotlib.org/users/pyplot_tutorial.html\#working-with-multiple-figures-and-axes}{this
+link} helpful in organizing one plot above the
+other.)}{16. Using MatPlotLib and PyPlot, plot the distribution of the Rate columns for both SAT and ACT using histograms. (You should have two histograms. You might find this link helpful in organizing one plot above the other.)}}\label{using-matplotlib-and-pyplot-plot-the-distribution-of-the-rate-columns-for-both-sat-and-act-using-histograms.-you-should-have-two-histograms.-you-might-find-this-link-helpful-in-organizing-one-plot-above-the-other.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k}{def} \PY{n+nf}{sat\PYZus{}graph}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{n}\PY{p}{,} \PY{n}{bins}\PY{p}{,} \PY{n}{patches} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{mergedRenamed}\PY{o}{.}\PY{n}{sat\PYZus{}participation}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{normed}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.75}\PY{p}{)}
+         
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Participation Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probability}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Histogram of SAT Participation Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.050}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             
+         \PY{k}{def} \PY{n+nf}{act\PYZus{}graph}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{n}\PY{p}{,} \PY{n}{bins}\PY{p}{,} \PY{n}{patches} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{mergedRenamed}\PY{o}{.}\PY{n}{act\PYZus{}participation}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{normed}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.75}\PY{p}{)}
+         
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Participation Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probability}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Histogram of ACT Participation Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{sat\PYZus{}graph}\PY{p}{(}\PY{p}{)}
+         \PY{n}{act\PYZus{}graph}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subparagraph{17. Plot the Math(s) distributions from both data
+sets.}\label{plot-the-maths-distributions-from-both-data-sets.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k}{def} \PY{n+nf}{act\PYZus{}math\PYZus{}graph}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{mergedRenamed}\PY{o}{.}\PY{n}{act\PYZus{}math}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ACT Math Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{sat\PYZus{}math\PYZus{}graph}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{mergedRenamed}\PY{o}{.}\PY{n}{sat\PYZus{}math}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SAT Math Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{act\PYZus{}math\PYZus{}graph}\PY{p}{(}\PY{p}{)}
+         \PY{n}{sat\PYZus{}math\PYZus{}graph}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subparagraph{18. Plot the Verbal distributions from both data
+sets.}\label{plot-the-verbal-distributions-from-both-data-sets.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{k}{def} \PY{n+nf}{sat\PYZus{}eng\PYZus{}graph}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{mergedRenamed}\PY{o}{.}\PY{n}{sat\PYZus{}reading\PYZus{}writing}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SAT Reading and Writing Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             
+         \PY{k}{def} \PY{n+nf}{act\PYZus{}eng\PYZus{}graph}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{mergedRenamed}\PY{o}{.}\PY{n}{act\PYZus{}english}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ACT English Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             
+         \PY{n}{sat\PYZus{}eng\PYZus{}graph}\PY{p}{(}\PY{p}{)}
+         \PY{n}{act\PYZus{}eng\PYZus{}graph}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subparagraph{19. When we make assumptions about how data are
+distributed, what is the most common
+assumption?}\label{when-we-make-assumptions-about-how-data-are-distributed-what-is-the-most-common-assumption}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} Assumption of normality}
+         \PY{c+c1}{\PYZsh{} If you took a sample, calculated its mean, and wrote this down; then}
+         \PY{c+c1}{\PYZsh{} took another (independent) sample (from the same population) and got its mean and wrote it}
+         \PY{c+c1}{\PYZsh{} down; and did this an infinite number of times; then the distribution of the values that you wrote}
+         \PY{c+c1}{\PYZsh{} down would always be a perfect bell curve. }
+         
+         \PY{c+c1}{\PYZsh{} Assumption of independence}
+         \PY{c+c1}{\PYZsh{} The observations between groups should be independent, }
+         \PY{c+c1}{\PYZsh{} which basically means the groups are made up }
+         \PY{c+c1}{\PYZsh{} of different people/things/variables. You don’t want one person/things/variables}
+         \PY{c+c1}{\PYZsh{} appearing twice in two different groups as it could skew your results.}
+\end{Verbatim}
+
+
+    \subparagraph{20. Does this assumption hold true for any of our columns?
+Which?}\label{does-this-assumption-hold-true-for-any-of-our-columns-which}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} SAT\PYZus{}reading, SAT\PYZus{}math are independent of each other.}
+\end{Verbatim}
+
+
+    \subparagraph{21. Plot some scatterplots examining relationships between
+all
+variables.}\label{plot-some-scatterplots-examining-relationships-between-all-variables.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{mergedRenamed}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} <seaborn.axisgrid.PairGrid at 0x1a0fac1cc0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_59_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subparagraph{22. Are there any interesting relationships to
+note?}\label{are-there-any-interesting-relationships-to-note}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{} It is interesting to note that the ACT \PYZam{} SAT Participation seems to be }
+         \PY{c+c1}{\PYZsh{} negatively correlated with their respective }
+         \PY{c+c1}{\PYZsh{} subjects and accumulated scores. }
+         
+         \PY{c+c1}{\PYZsh{} Another interesting relationship deals with the }
+         \PY{c+c1}{\PYZsh{} State and Participation Rates of both exams. }
+         \PY{c+c1}{\PYZsh{} Several States have a high participation rate on one }
+         \PY{c+c1}{\PYZsh{} exam and low on the other, in other words, }
+         \PY{c+c1}{\PYZsh{} some States have a high participation rate for the SAT, }
+         \PY{c+c1}{\PYZsh{} the ACT will have a low rate of participation. }
+         \PY{c+c1}{\PYZsh{} This relationship is true in many sates.}
+\end{Verbatim}
+
+
+    \subparagraph{23. Create box plots for each
+variable.}\label{create-box-plots-for-each-variable.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{mergedRenamed}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}reading\PYZus{}writing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}math}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{orient}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horizontal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fliersize}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{notch}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{saturation}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{mergedRenamed}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{act\PYZus{}english}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{act\PYZus{}math}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{act\PYZus{}reading}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{act\PYZus{}composite}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{orient}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fliersize}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{notch}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{saturation}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_63_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{mergedRenamed}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}participation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{act\PYZus{}participation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{orient}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horizontal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fliersize}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{notch}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{saturation}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_64_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{mergedRenamed}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{orient}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horizontal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fliersize}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{notch}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{saturation}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_65_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subparagraph{BONUS: Using Tableau, create a heat map for each variable
+using a map of the
+US.}\label{bonus-using-tableau-create-a-heat-map-for-each-variable-using-a-map-of-the-us.}
+
+    \subsection{Step 4: Descriptive and Inferential
+Statistics}\label{step-4-descriptive-and-inferential-statistics}
+
+    \subparagraph{24. Summarize each distribution. As data scientists, be
+sure to back up these summaries with statistics. (Hint: What are the
+three things we care about when describing
+distributions?)}\label{summarize-each-distribution.-as-data-scientists-be-sure-to-back-up-these-summaries-with-statistics.-hint-what-are-the-three-things-we-care-about-when-describing-distributions}
+
+    \section{The three things that are important while describing
+distributions
+are:}\label{the-three-things-that-are-important-while-describing-distributions-are}
+
+\section{1) Center (Mean, Median, Mode) 2) Spread (Std. Deviation,
+range) 3)
+Shape}\label{center-mean-median-mode-2-spread-std.-deviation-range-3-shape}
+
+\section{skew, symmetry}\label{skew-symmetry}
+
+ACT Composite: The distribution has a shape that is a positively skewed
+bimodal The spread of the distribution is low. SAT Total Distribution:
+For evidence based reading and writing and math and the total section,
+distribution looks bimodal. The distribution has a low spread. ACT
+Participation Distribution: The average participation rate is 65\% among
+all states. Also resulting in a bimodal shape. The distribution has low
+spread.
+
+    \subparagraph{25. Summarize each relationship. Be sure to back up these
+summaries with
+statistics.}\label{summarize-each-relationship.-be-sure-to-back-up-these-summaries-with-statistics.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{mergedRenamed}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:}                      sat\_participation  sat\_reading\_writing  sat\_math  \textbackslash{}
+         sat\_participation             1.000000            -0.874326 -0.566558   
+         sat\_reading\_writing          -0.874326             1.000000  0.628405   
+         sat\_math                     -0.566558             0.628405  1.000000   
+         sat\_total                    -0.867540             0.996661  0.632648   
+         act\_participation            -0.841234             0.716153  0.507670   
+         act\_english                   0.686889            -0.461345 -0.345342   
+         act\_math                      0.710697            -0.486126 -0.340906   
+         act\_reading                   0.705352            -0.488441 -0.363099   
+         act\_science                   0.248553            -0.135461  0.594714   
+         act\_composite                 0.694748            -0.470382 -0.346335   
+         
+                              sat\_total  act\_participation  act\_english  act\_math  \textbackslash{}
+         sat\_participation    -0.867540          -0.841234     0.686889  0.710697   
+         sat\_reading\_writing   0.996661           0.716153    -0.461345 -0.486126   
+         sat\_math              0.632648           0.507670    -0.345342 -0.340906   
+         sat\_total             1.000000           0.701477    -0.441947 -0.454116   
+         act\_participation     0.701477           1.000000    -0.843501 -0.861114   
+         act\_english          -0.441947          -0.843501     1.000000  0.967803   
+         act\_math             -0.454116          -0.861114     0.967803  1.000000   
+         act\_reading          -0.466558          -0.866620     0.985999  0.979630   
+         act\_science          -0.121783          -0.304992     0.403456  0.412318   
+         act\_composite        -0.445020          -0.858134     0.990856  0.990451   
+         
+                              act\_reading  act\_science  act\_composite  
+         sat\_participation       0.705352     0.248553       0.694748  
+         sat\_reading\_writing    -0.488441    -0.135461      -0.470382  
+         sat\_math               -0.363099     0.594714      -0.346335  
+         sat\_total              -0.466558    -0.121783      -0.445020  
+         act\_participation      -0.866620    -0.304992      -0.858134  
+         act\_english             0.985999     0.403456       0.990856  
+         act\_math                0.979630     0.412318       0.990451  
+         act\_reading             1.000000     0.401097       0.995069  
+         act\_science             0.401097     1.000000       0.408656  
+         act\_composite           0.995069     0.408656       1.000000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} There is a strong negative correlation between SAT Participation and ACT Participation. }
+        
+        \PY{c+c1}{\PYZsh{} Something I noticed with Participation and scores for both SAT and ACT. As participation increases,}
+        \PY{c+c1}{\PYZsh{} the lower are average test scores in that particular state. This has been observed}
+        \PY{c+c1}{\PYZsh{} subjectwise and combined. }
+        
+        \PY{c+c1}{\PYZsh{} There is also a negative correlation between SAT and ACT Participation scores}
+        \PY{c+c1}{\PYZsh{} and each of their respective subjects. }
+\end{Verbatim}
+
+
+    \subparagraph{\texorpdfstring{26. Execute a hypothesis test comparing
+the SAT and ACT participation rates. Use \(\alpha = 0.05\). Be sure to
+interpret your
+results.}{26. Execute a hypothesis test comparing the SAT and ACT participation rates. Use \textbackslash{}alpha = 0.05. Be sure to interpret your results.}}\label{execute-a-hypothesis-test-comparing-the-sat-and-act-participation-rates.-use-alpha-0.05.-be-sure-to-interpret-your-results.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{c+c1}{\PYZsh{}H0: there is no observed difference between SAT and ACT participation rates}
+         \PY{c+c1}{\PYZsh{}H1: there is an observed difference between SAT and ACT participation rates }
+\end{Verbatim}
+
+
+    \subparagraph{27. Generate and interpret 95\% confidence intervals for
+SAT and ACT participation
+rates.}\label{generate-and-interpret-95-confidence-intervals-for-sat-and-act-participation-rates.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{as} \PY{n+nn}{stats}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{stats}\PY{o}{.}\PY{n}{ttest\PYZus{}ind}\PY{p}{(}\PY{n}{mergedRenamed}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}participation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{mergedRenamed}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{act\PYZus{}participation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{equal\PYZus{}var}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} Ttest\_indResult(statistic=-3.8085778908170544, pvalue=0.00024134203698662353)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} the above cell shows a very high result. It looks like it is approximately}
+        \PY{c+c1}{\PYZsh{} 4 std dev away from 0.}
+        \PY{c+c1}{\PYZsh{} the p value is observed to be 0,0002, which less than 0.05. Therefore,}
+        \PY{c+c1}{\PYZsh{} we can reject the null hypothesis. Thus, identifying that there is a diff}
+        \PY{c+c1}{\PYZsh{} between SAT and ACT participation rates.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{stats}\PY{o}{.}\PY{n}{t}\PY{o}{.}\PY{n}{interval}\PY{p}{(}\PY{l+m+mf}{0.95}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{mergedRenamed}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}participation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}
+                       \PY{n}{loc}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{mergedRenamed}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}participation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                       \PY{n}{scale}\PY{o}{=}\PY{n}{stats}\PY{o}{.}\PY{n}{sem}\PY{p}{(}\PY{n}{mergedRenamed}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}participation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} (29.882208872773198, 49.725634264481705)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} By looking at the score above, we can say with 95\PYZpc{} confidence that}
+        \PY{c+c1}{\PYZsh{} the mean of SAT Participation column will fall between 29.8\PYZpc{} and 49.7\PYZpc{}. }
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{stats}\PY{o}{.}\PY{n}{t}\PY{o}{.}\PY{n}{interval}\PY{p}{(}\PY{l+m+mf}{0.95}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{mergedRenamed}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{act\PYZus{}participation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}
+                       \PY{n}{loc}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{mergedRenamed}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{act\PYZus{}participation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                       \PY{n}{scale}\PY{o}{=}\PY{n}{stats}\PY{o}{.}\PY{n}{sem}\PY{p}{(}\PY{n}{mergedRenamed}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{act\PYZus{}participation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} (56.215144484968086, 74.29465943660054)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} By looking at the score above, we can say with 95\PYZpc{} confidence that}
+        \PY{c+c1}{\PYZsh{} the mean of ACT Participation column will fall between 56.2\PYZpc{} and 74.2\PYZpc{}. }
+\end{Verbatim}
+
+
+    \subparagraph{28. Given your answer to 26, was your answer to 27
+surprising?
+Why?}\label{given-your-answer-to-26-was-your-answer-to-27-surprising-why}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Based on the statistics calculation in 26, we had rejected the null}
+        \PY{c+c1}{\PYZsh{} hypothesis indicating there is a difference in SAT and ACT participation}
+        \PY{c+c1}{\PYZsh{} rates. }
+        \PY{c+c1}{\PYZsh{} The confidence intervals calculated are basically verifying our rejection}
+        \PY{c+c1}{\PYZsh{} of the null hypothesis. }
+\end{Verbatim}
+
+
+    \subparagraph{29. Is it appropriate to generate correlation between SAT
+and ACT math scores?
+Why?}\label{is-it-appropriate-to-generate-correlation-between-sat-and-act-math-scores-why}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} I am not a 100\PYZpc{} sure. There is a negative correlation between SAT and ACT math scores}
+        \PY{c+c1}{\PYZsh{} observed earlier. }
+\end{Verbatim}
+
+
+    \subparagraph{30. Suppose we only seek to understand the relationship
+between SAT and ACT data in 2017. Does it make sense to conduct
+statistical inference given the data we have?
+Why?}\label{suppose-we-only-seek-to-understand-the-relationship-between-sat-and-act-data-in-2017.-does-it-make-sense-to-conduct-statistical-inference-given-the-data-we-have-why}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} In my opinion, we should conduct statistical inference}
+        \PY{c+c1}{\PYZsh{} in order to derive conclusions about how correlated the subjects are, }
+        \PY{c+c1}{\PYZsh{} and comparing the participation rates. }
+        \PY{c+c1}{\PYZsh{} We can try to infer what exam is preferred in what state. }
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
